@@ -1,0 +1,32 @@
+---
+- hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Install nginx on ansible_ubuntu
+      apt: allow_unauthenticated=yes name=nginx state=latest
+      become: yes
+
+    - name: Removind default config
+      file: path=/etc/nginx/sites-enabled/default state=absent
+      notify: restart nginx
+
+    - name: Install nginx configuration
+      template: src=ansible.srwx.net.conf.j2 dest=/etc/nginx/sites-enabled/ansible.srwx.net.conf owner=root group=root mode=0644
+      when: ansible_os_family == "Ubuntu"
+
+  
+    - name: Install nginx on ansible_CentOS
+      yum: allow_unauthenticated=yes name=nginx state=present
+      become: yes
+
+    - name: Removind default config
+      file: path=/etc/nginx/sites-enabled/default state=absent
+      notify: restart nginx
+
+    - name: Install nginx configuration
+      template: src=ansible.srwx.net.conf.j2 dest=/etc/nginx/sites-enabled/ansible.srwx.net.conf owner=root group=root mode=0644
+      when: ansible_os_family == "CentOS"
+
+  handlers:
+  - name: Reload nginx
+    service: name=nginx state=restarted

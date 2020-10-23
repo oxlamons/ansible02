@@ -1,0 +1,3 @@
+
+[dev]
+135.181.32.204 ansible_ssh_user=root

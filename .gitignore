@@ -1,0 +1,15 @@
+
+terraform.tfstate         
+terraform.tfstate.backup  
+versions.tf
+.terraform/
+.idea/
+login.txt
+nginx.yml
+python.yml
+variable.tf
+ansible_centos.yml
+ansible_ubuntu.yml
+gamily_oc.html.j2
+nginx1.yml
+
